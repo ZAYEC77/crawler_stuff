@@ -1,0 +1,12 @@
+{
+    "name": "ZAYEC77/crawler_stuff",
+    "require": {
+        "fabpot/goutte": "^3.2",
+        "kevinrob/guzzle-cache-middleware": "^3.2"
+    },
+    "autoload": {
+      "psr-4": {
+        "Crawler\\": "src/"
+      }
+    }
+}
