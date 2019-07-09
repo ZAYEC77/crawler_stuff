@@ -71,4 +71,13 @@ class Arg
         };
         return $this;
     }
+    
+    public function map($cb)
+    {
+        $value = $this->val();
+        $this->value = function () use ($value, $cb) {
+            return array_map($cb, $value);
+        };
+        return $this;
+    }
 }
