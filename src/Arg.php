@@ -65,10 +65,9 @@ class Arg
 
     public function splitBy($delimiter)
     {
-        $value = $this->val();
-        $this->value = function () use ($value, $delimiter) {
+        $this->apply(function ($value) use ($delimiter) {
             return explode($delimiter, $value);
-        };
+        });
         return $this;
     }
     
@@ -77,6 +76,24 @@ class Arg
         $value = $this->val();
         $this->value = function () use ($value, $cb) {
             return array_map($cb, $value);
+        };
+        return $this;
+    }
+
+    public function reduce($cb, $acc)
+    {
+        $value = $this->val();
+        $this->value = function () use ($value, $cb, $acc) {
+            return array_reduce($value, $cb, $acc);
+        };
+        return $this;
+    }
+
+    public function apply($cb) 
+    {
+        $value = $this->val();
+        $this->value = function () use ($value, $cb) {
+            return call_user_func_array($cb, [$value]);
         };
         return $this;
     }
